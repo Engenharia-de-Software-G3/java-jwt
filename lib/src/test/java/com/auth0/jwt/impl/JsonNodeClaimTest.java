@@ -283,7 +283,10 @@ public class JsonNodeClaimTest {
         assertThat(backMap, hasEntry("number", (Object) 12));
         assertThat(backMap, hasEntry("boolean", (Object) true));
         assertThat(backMap, hasKey("object"));
-        assertThat((Map<String, Object>) backMap.get("object"), IsMapContaining.hasEntry("something", (Object) "else"));
+
+        Object obj = backMap.get("object");
+        assertThat(obj, is(notNullValue()));
+        assertThat((Map<String, Object>) obj, IsMapContaining.hasEntry("something", (Object) "else"));
     }
 
     @Test
@@ -310,8 +313,11 @@ public class JsonNodeClaimTest {
         Claim claim = claimFromNode(value);
 
         assertThat(claim, is(notNullValue()));
-        assertThat(claim.as(UserPojo.class).getName(), is("john"));
-        assertThat(claim.as(UserPojo.class).getId(), is(123));
+
+        UserPojo user = claim.as(UserPojo.class);
+        assertThat(user, is(notNullValue()));
+        assertThat(user.getName(), is("john"));
+        assertThat(user.getId(), is(123));
     }
 
     @Test
@@ -372,9 +378,14 @@ public class JsonNodeClaimTest {
         Claim claim = claimFromNode(value);
 
         assertThat(claim, is(notNullValue()));
+
         Map map = claim.as(Map.class);
-        assertThat(((Map<String, Object>) map.get("key")), hasEntry("name", (Object) "john"));
-        assertThat(((Map<String, Object>) map.get("key")), hasEntry("id", (Object) 123));
+        assertThat(map, is(notNullValue()));
+
+        Object inner = map.get("key");
+        assertThat(inner, is(notNullValue()));
+        assertThat(((Map<String, Object>) inner), hasEntry("name", (Object) "john"));
+        assertThat(((Map<String, Object>) inner), hasEntry("id", (Object) 123));
     }
 
     @Test

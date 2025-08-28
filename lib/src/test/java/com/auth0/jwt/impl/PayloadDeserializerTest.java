@@ -100,9 +100,19 @@ public class PayloadDeserializerTest {
         assertThat(payload.getIssuedAt().getTime(), is(10101010L * 1000));
         assertThat(payload.getExpiresAt().getTime(), is(11111111L * 1000));
         assertThat(payload.getNotBefore().getTime(), is(10101011L * 1000));
-        assertThat(payload.getIssuedAtAsInstant().getEpochSecond(), is(10101010L));
-        assertThat(payload.getExpiresAtAsInstant().getEpochSecond(), is(11111111L));
-        assertThat(payload.getNotBeforeAsInstant().getEpochSecond(), is(10101011L));
+
+        Instant iat = payload.getIssuedAtAsInstant();
+        assertThat(iat, is(notNullValue()));
+        assertThat(iat.getEpochSecond(), is(10101010L));
+
+        Instant exp = payload.getExpiresAtAsInstant();
+        assertThat(exp, is(notNullValue()));
+        assertThat(exp.getEpochSecond(), is(11111111L));
+
+        Instant nbf = payload.getNotBeforeAsInstant();
+        assertThat(nbf, is(notNullValue()));
+        assertThat(nbf.getEpochSecond(), is(10101011L));
+
         assertThat(payload.getId(), is("idid"));
 
         assertThat(payload.getClaim("roles").asString(), is("admin"));
