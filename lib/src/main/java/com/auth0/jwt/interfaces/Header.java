@@ -1,9 +1,11 @@
 package com.auth0.jwt.interfaces;
 
+import java.io.Serializable;
+
 /**
  * The Header class represents the 1st part of the JWT, where the Header value is held.
  */
-public interface Header {
+public interface Header extends Serializable {
 
     /**
      * Getter for the Algorithm "alg" claim defined in the JWT's Header. If the claim is missing it will return null.

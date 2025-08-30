@@ -538,16 +538,16 @@ public class ECDSABouncyCastleProviderTests {
     }
 
     //Sign
-    private static final String ES256Header = "eyJhbGciOiJFUzI1NiJ9";
-    private static final String ES384Header = "eyJhbGciOiJFUzM4NCJ9";
-    private static final String ES512Header = "eyJhbGciOiJFUzUxMiJ9";
-    private static final String auth0IssPayload = "eyJpc3MiOiJhdXRoMCJ9";
+    private static final String ES256_HEADER = "eyJhbGciOiJFUzI1NiJ9";
+    private static final String ES384_HEADER = "eyJhbGciOiJFUzM4NCJ9";
+    private static final String ES512_HEADER = "eyJhbGciOiJFUzUxMiJ9";
+    private static final String AUTH0_ISS_PAYLOAD = "eyJpc3MiOiJhdXRoMCJ9";
 
     @Test
     public void shouldDoECDSA256Signing() throws Exception {
         Algorithm algorithmSign = Algorithm.ECDSA256((ECKey) readPrivateKeyFromFile(PRIVATE_KEY_FILE_256, "EC"));
         Algorithm algorithmVerify = Algorithm.ECDSA256((ECKey) readPublicKeyFromFile(PUBLIC_KEY_FILE_256, "EC"));
-        String jwt = asJWT(algorithmSign, ES256Header, auth0IssPayload);
+        String jwt = asJWT(algorithmSign, ES256_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithmVerify.verify(JWT.decode(jwt));
@@ -556,7 +556,7 @@ public class ECDSABouncyCastleProviderTests {
     @Test
     public void shouldDoECDSA256SigningWithBothKeys() throws Exception {
         Algorithm algorithm = Algorithm.ECDSA256((ECPublicKey) readPublicKeyFromFile(PUBLIC_KEY_FILE_256, "EC"), (ECPrivateKey) readPrivateKeyFromFile(PRIVATE_KEY_FILE_256, "EC"));
-        String jwt = asJWT(algorithm, ES256Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, ES256_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithm.verify(JWT.decode(jwt));
@@ -571,7 +571,7 @@ public class ECDSABouncyCastleProviderTests {
         when(provider.getPublicKeyById(null)).thenReturn((ECPublicKey) publicKey);
         Algorithm algorithm = Algorithm.ECDSA256(provider);
         
-        String jwt = asJWT(algorithm, ES256Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, ES256_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithm.verify(JWT.decode(jwt));
@@ -605,7 +605,7 @@ public class ECDSABouncyCastleProviderTests {
     public void shouldDoECDSA384Signing() throws Exception {
         Algorithm algorithmSign = Algorithm.ECDSA384((ECKey) readPrivateKeyFromFile(PRIVATE_KEY_FILE_384, "EC"));
         Algorithm algorithmVerify = Algorithm.ECDSA384((ECKey) readPublicKeyFromFile(PUBLIC_KEY_FILE_384, "EC"));
-        String jwt = asJWT(algorithmSign, ES384Header, auth0IssPayload);
+        String jwt = asJWT(algorithmSign, ES384_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithmVerify.verify(JWT.decode(jwt));
@@ -614,7 +614,7 @@ public class ECDSABouncyCastleProviderTests {
     @Test
     public void shouldDoECDSA384SigningWithBothKeys() throws Exception {
         Algorithm algorithm = Algorithm.ECDSA384((ECPublicKey) readPublicKeyFromFile(PUBLIC_KEY_FILE_384, "EC"), (ECPrivateKey) readPrivateKeyFromFile(PRIVATE_KEY_FILE_384, "EC"));
-        String jwt = asJWT(algorithm, ES384Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, ES384_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithm.verify(JWT.decode(jwt));
@@ -629,7 +629,7 @@ public class ECDSABouncyCastleProviderTests {
         when(provider.getPublicKeyById(null)).thenReturn((ECPublicKey) publicKey);
         Algorithm algorithm = Algorithm.ECDSA384(provider);
         
-        String jwt = asJWT(algorithm, ES384Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, ES384_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithm.verify(JWT.decode(jwt));
@@ -664,7 +664,7 @@ public class ECDSABouncyCastleProviderTests {
         Algorithm algorithmSign = Algorithm.ECDSA512((ECKey) readPrivateKeyFromFile(PRIVATE_KEY_FILE_512, "EC"));
         Algorithm algorithmVerify = Algorithm.ECDSA512((ECKey) readPublicKeyFromFile(PUBLIC_KEY_FILE_512, "EC"));
         
-        String jwt = asJWT(algorithmSign, ES512Header, auth0IssPayload);
+        String jwt = asJWT(algorithmSign, ES512_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithmVerify.verify(JWT.decode(jwt));
@@ -673,7 +673,7 @@ public class ECDSABouncyCastleProviderTests {
     @Test
     public void shouldDoECDSA512SigningWithBothKeys() throws Exception {
         Algorithm algorithm = Algorithm.ECDSA512((ECPublicKey) readPublicKeyFromFile(PUBLIC_KEY_FILE_512, "EC"), (ECPrivateKey) readPrivateKeyFromFile(PRIVATE_KEY_FILE_512, "EC"));
-        String jwt = asJWT(algorithm, ES512Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, ES512_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithm.verify(JWT.decode(jwt));
@@ -688,7 +688,7 @@ public class ECDSABouncyCastleProviderTests {
         when(provider.getPrivateKey()).thenReturn((ECPrivateKey) privateKey);
         when(provider.getPublicKeyById(null)).thenReturn((ECPublicKey) publicKey);
         Algorithm algorithm = Algorithm.ECDSA512(provider);
-        String jwt = asJWT(algorithm, ES512Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, ES512_HEADER, AUTH0_ISS_PAYLOAD);
 
         assertSignaturePresent(jwt);
         algorithm.verify(JWT.decode(jwt));
@@ -732,7 +732,7 @@ public class ECDSABouncyCastleProviderTests {
         ECPrivateKey privateKey = mock(ECPrivateKey.class);
         ECDSAKeyProvider provider = ECDSAAlgorithm.providerForKeys(publicKey, privateKey);
         Algorithm algorithm = new ECDSAAlgorithm(crypto, "some-alg", "some-algorithm", 32, provider);
-        algorithm.sign(ES256Header.getBytes(StandardCharsets.UTF_8), new byte[0]);
+        algorithm.sign(ES256_HEADER.getBytes(StandardCharsets.UTF_8), new byte[0]);
     }
 
     @Test
@@ -749,7 +749,7 @@ public class ECDSABouncyCastleProviderTests {
         ECPrivateKey privateKey = mock(ECPrivateKey.class);
         ECDSAKeyProvider provider = ECDSAAlgorithm.providerForKeys(publicKey, privateKey);
         Algorithm algorithm = new ECDSAAlgorithm(crypto, "some-alg", "some-algorithm", 32, provider);
-        algorithm.sign(ES256Header.getBytes(StandardCharsets.UTF_8), new byte[0]);
+        algorithm.sign(ES256_HEADER.getBytes(StandardCharsets.UTF_8), new byte[0]);
     }
 
     @Test
@@ -766,7 +766,7 @@ public class ECDSABouncyCastleProviderTests {
         ECPrivateKey privateKey = mock(ECPrivateKey.class);
         ECDSAKeyProvider provider = ECDSAAlgorithm.providerForKeys(publicKey, privateKey);
         Algorithm algorithm = new ECDSAAlgorithm(crypto, "some-alg", "some-algorithm", 32, provider);
-        algorithm.sign(ES256Header.getBytes(StandardCharsets.UTF_8), new byte[0]);
+        algorithm.sign(ES256_HEADER.getBytes(StandardCharsets.UTF_8), new byte[0]);
     }
 
     @Test

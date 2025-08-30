@@ -9,7 +9,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
  *
  * <pre>
  * try {
- *      JWTVerifier verifier = JWTVerifier.init(Algorithm.RSA256(publicKey, privateKey)
+ *      Verifier verifier = Verifier.init(Algorithm.RSA256(publicKey, privateKey)
  *          .withIssuer("auth0")
  *          .build();
  *      DecodedJWT jwt = verifier.verify("token");
@@ -18,7 +18,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
  * }
  * </pre>
  */
-public interface JWTVerifier {
+public interface Verifier {
 
     /**
      * Performs the verification against the given Token.

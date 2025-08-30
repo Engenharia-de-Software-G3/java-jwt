@@ -8,7 +8,7 @@ import com.auth0.jwt.interfaces.Claim;
 public class IncorrectClaimException extends InvalidClaimException {
     private final String claimName;
 
-    private final Claim claimValue;
+    private final transient Claim claimValue;
 
     /**
      * Used internally to construct the IncorrectClaimException which is thrown when there is verification

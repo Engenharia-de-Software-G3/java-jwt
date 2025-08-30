@@ -1,5 +1,6 @@
 package com.auth0.jwt.interfaces;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 /**
  * The Payload class represents the 2nd part of the JWT, where the Payload value is held.
  */
-public interface Payload {
+public interface Payload extends Serializable {
 
     /**
      * Get the value of the "iss" claim, or null if it's not available.

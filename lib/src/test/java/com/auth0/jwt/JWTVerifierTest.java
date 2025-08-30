@@ -5,6 +5,7 @@ import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Verification;
+import com.auth0.jwt.interfaces.Verifier;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -41,7 +42,7 @@ public class JWTVerifierTest {
     @Test
     public void shouldThrowWhenAlgorithmDoesntMatchTheTokensAlgorithm() {
         AlgorithmMismatchException e = assertThrows(null, AlgorithmMismatchException.class, () -> {
-            JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC512("secret")).build();
+            Verifier verifier = JWTVerifier.init(Algorithm.HMAC512("secret")).build();
             verifier.verify("eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCJ9.s69x7Mmu4JqwmdxiK6sesALO7tcedbFsKEEITUxw9ho");
         });
         assertThat(e.getMessage(), is("The provided Algorithm doesn't match the one defined in the JWT's Header."));
@@ -72,7 +73,7 @@ public class JWTVerifierTest {
     public void shouldValidateMultipleIssuers() {
         String auth0Token = "eyJhbGciOiJIUzI1NiIsImN0eSI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCJ9.mZ0m_N1J4PgeqWmi903JuUoDRZDBPB7HwkS4nVyWH1M";
         String otherIssuertoken = "eyJhbGciOiJIUzI1NiIsImN0eSI6IkpXVCJ9.eyJpc3MiOiJvdGhlcklzc3VlciJ9.k4BCOJJl-c0_Y-49VD_mtt-u0QABKSV5i3W-RKc74co";
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withIssuer("otherIssuer", "auth0")
                 .build();
 
@@ -957,7 +958,7 @@ public class JWTVerifierTest {
                     .withClaim("custom", "")
                     .sign(Algorithm.HMAC256("secret"));
 
-            JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+            Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                     .withClaimPresence("missing")
                     .build();
 
@@ -986,7 +987,7 @@ public class JWTVerifierTest {
                 .withClaim("custom", "")
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaimPresence("custom")
                 .build();
 
@@ -1000,7 +1001,7 @@ public class JWTVerifierTest {
                 .withClaim("custom", true)
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaimPresence("custom")
                 .build();
 
@@ -1014,7 +1015,7 @@ public class JWTVerifierTest {
                 .withClaim("custom", 123)
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaimPresence("custom")
                 .build();
 
@@ -1028,7 +1029,7 @@ public class JWTVerifierTest {
                 .withClaim("custom", 922337203685477600L)
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaimPresence("custom")
                 .build();
 
@@ -1042,7 +1043,7 @@ public class JWTVerifierTest {
                 .withClaim("custom", 12.34)
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaimPresence("custom")
                 .build();
 
@@ -1056,7 +1057,7 @@ public class JWTVerifierTest {
                 .withClaim("custom", Collections.singletonList("item"))
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaimPresence("custom")
                 .build();
 
@@ -1070,7 +1071,7 @@ public class JWTVerifierTest {
                 .withClaim("custom", Collections.singletonMap("key", "value"))
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaimPresence("custom")
                 .build();
 
@@ -1084,7 +1085,7 @@ public class JWTVerifierTest {
                 .withClaim("aud", "any value")
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaimPresence("aud")
                 .build();
 
@@ -1098,7 +1099,7 @@ public class JWTVerifierTest {
                 .withClaim("claimName", "claimValue")
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withClaim("claimName", (claim, decodedJWT) -> "claimValue".equals(claim.asString()))
                 .build();
 
@@ -1140,7 +1141,7 @@ public class JWTVerifierTest {
                 .withNullClaim("claimName")
                 .sign(Algorithm.HMAC256("secret"));
 
-        JWTVerifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
+        Verifier verifier = JWTVerifier.init(Algorithm.HMAC256("secret"))
                 .withNullClaim("claimName")
                 .build();
 
