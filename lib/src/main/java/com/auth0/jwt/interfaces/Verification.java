@@ -9,7 +9,7 @@ import java.util.function.BiPredicate;
 /**
  * Constructs and holds the checks required for a JWT to be considered valid. Note that implementations are
  * <strong>not</strong> thread-safe. Once built by calling {@link #build()}, the resulting
- * {@link com.auth0.jwt.interfaces.JWTVerifier} is thread-safe.
+ * {@link Verifier} is thread-safe.
  */
 public interface Verification {
 
@@ -259,9 +259,9 @@ public interface Verification {
     Verification ignoreIssuedAt();
 
     /**
-     * Creates a new and reusable instance of the JWTVerifier with the configuration already provided.
+     * Creates a new and reusable instance of the Verifier with the configuration already provided.
      *
-     * @return a new {@link com.auth0.jwt.interfaces.JWTVerifier} instance.
+     * @return a new {@link Verifier} instance.
      */
     JWTVerifier build();
 }

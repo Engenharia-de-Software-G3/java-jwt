@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.impl.ExpectedCheckHolder;
 import com.auth0.jwt.interfaces.Verification;
+import com.auth0.jwt.interfaces.Verifier;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -16,14 +17,14 @@ import java.util.*;
 import java.util.function.BiPredicate;
 
 /**
- * The JWTVerifier class holds the verify method to assert that a given Token has not only a proper JWT format,
+ * The Verifier class holds the verify method to assert that a given Token has not only a proper JWT format,
  * but also its signature matches.
  * <p>
  * This class is thread-safe.
  *
- * @see com.auth0.jwt.interfaces.JWTVerifier
+ * @see Verifier
  */
-public final class JWTVerifier implements com.auth0.jwt.interfaces.JWTVerifier {
+public final class JWTVerifier implements Verifier {
     private final Algorithm algorithm;
     final List<ExpectedCheckHolder> expectedChecks;
     private final JWTParser parser;
@@ -47,10 +48,10 @@ public final class JWTVerifier implements com.auth0.jwt.interfaces.JWTVerifier {
 
     /**
      * {@link Verification} implementation that accepts all the expected Claim values for verification, and
-     * builds a {@link com.auth0.jwt.interfaces.JWTVerifier} used to verify a JWT's signature and expected claims.
+     * builds a {@link Verifier} used to verify a JWT's signature and expected claims.
      *
      * Note that this class is <strong>not</strong> thread-safe. Calling {@link #build()} returns an instance of
-     * {@link com.auth0.jwt.interfaces.JWTVerifier} which can be reused.
+     * {@link Verifier} which can be reused.
      */
     public static class BaseVerification implements Verification {
         private final Algorithm algorithm;
@@ -277,11 +278,11 @@ public final class JWTVerifier implements com.auth0.jwt.interfaces.JWTVerifier {
         }
 
         /**
-         * Creates a new and reusable instance of the JWTVerifier with the configuration already provided.
+         * Creates a new and reusable instance of the Verifier with the configuration already provided.
          * ONLY FOR TEST PURPOSES.
          *
          * @param clock the instance that will handle the current time.
-         * @return a new JWTVerifier instance with a custom {@link java.time.Clock}
+         * @return a new Verifier instance with a custom {@link java.time.Clock}
          */
         public JWTVerifier build(Clock clock) {
             this.clock = clock;
