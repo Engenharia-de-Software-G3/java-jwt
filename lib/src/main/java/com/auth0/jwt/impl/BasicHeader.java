@@ -22,7 +22,7 @@ class BasicHeader implements Header, Serializable {
     private final String contentType;
     private final String keyId;
     private final Map<String, JsonNode> tree;
-    private final ObjectCodec objectCodec;
+    private final transient ObjectCodec objectCodec;
 
     BasicHeader(
             String algorithm,

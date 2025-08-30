@@ -34,7 +34,7 @@ class PayloadImpl implements Payload, Serializable {
     private final Instant issuedAt;
     private final String jwtId;
     private final Map<String, JsonNode> tree;
-    private final ObjectCodec objectCodec;
+    private final transient ObjectCodec objectCodec;
 
     PayloadImpl(
             String issuer,
