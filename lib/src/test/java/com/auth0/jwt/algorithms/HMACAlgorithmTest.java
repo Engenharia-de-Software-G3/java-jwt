@@ -167,16 +167,16 @@ public class HMACAlgorithmTest {
 
     // Sign
 
-    private static final String HS256Header = "eyJhbGciOiJIUzI1NiJ9";
-    private static final String HS384Header = "eyJhbGciOiJIUzM4NCJ9";
-    private static final String HS512Header = "eyJhbGciOiJIUzUxMiJ9";
-    private static final String auth0IssPayload = "eyJpc3MiOiJhdXRoMCJ9";
+    private static final String HS256_HEADER = "eyJhbGciOiJIUzI1NiJ9";
+    private static final String HS384_HEADER = "eyJhbGciOiJIUzM4NCJ9";
+    private static final String HS512_HEADER = "eyJhbGciOiJIUzUxMiJ9";
+    private static final String AUTH0_ISS_PAYLOAD = "eyJpc3MiOiJhdXRoMCJ9";
 
     @Test
     public void shouldDoHMAC256SigningWithBytes() {
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
 
-        String jwt = asJWT(algorithm, HS256Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, HS256_HEADER, AUTH0_ISS_PAYLOAD);
         String expectedSignature = "s69x7Mmu4JqwmdxiK6sesALO7tcedbFsKEEITUxw9ho";
 
         assertSignaturePresent(jwt);
@@ -188,7 +188,7 @@ public class HMACAlgorithmTest {
     public void shouldDoHMAC384SigningWithBytes() {
         Algorithm algorithm = Algorithm.HMAC384("secret".getBytes(StandardCharsets.UTF_8));
 
-        String jwt = asJWT(algorithm, HS384Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, HS384_HEADER, AUTH0_ISS_PAYLOAD);
         String expectedSignature = "4-y2Gxz_foN0jAOFimmBPF7DWxf4AsjM20zxNkHg8Zah5Q64G42P9GfjmUp4Hldt";
 
         assertSignaturePresent(jwt);
@@ -200,7 +200,7 @@ public class HMACAlgorithmTest {
     public void shouldDoHMAC512SigningWithBytes() {
         Algorithm algorithm = Algorithm.HMAC512("secret".getBytes(StandardCharsets.UTF_8));
 
-        String jwt = asJWT(algorithm, HS512Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, HS512_HEADER, AUTH0_ISS_PAYLOAD);
         String expectedSignature = "OXWyxmf-VcVo8viOiTFfLaEy6mrQqLEos5R82Xsx8mtFxQadJAQ1aVniIWN8qT2GNE_pMQPcdzk4x7Cqxsp1dw";
 
         assertSignaturePresent(jwt);
@@ -212,7 +212,7 @@ public class HMACAlgorithmTest {
     public void shouldDoHMAC256SigningWithString() {
         Algorithm algorithm = Algorithm.HMAC256("secret");
 
-        String jwt = asJWT(algorithm, HS256Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, HS256_HEADER, AUTH0_ISS_PAYLOAD);
         String expectedSignature = "s69x7Mmu4JqwmdxiK6sesALO7tcedbFsKEEITUxw9ho";
 
         assertSignaturePresent(jwt);
@@ -224,7 +224,7 @@ public class HMACAlgorithmTest {
     public void shouldDoHMAC384SigningWithString() {
         Algorithm algorithm = Algorithm.HMAC384("secret");
 
-        String jwt = asJWT(algorithm, HS384Header, auth0IssPayload);
+        String jwt = asJWT(algorithm, HS384_HEADER, AUTH0_ISS_PAYLOAD);
         String expectedSignature = "4-y2Gxz_foN0jAOFimmBPF7DWxf4AsjM20zxNkHg8Zah5Q64G42P9GfjmUp4Hldt";
 
         assertSignaturePresent(jwt);
@@ -236,7 +236,7 @@ public class HMACAlgorithmTest {
     public void shouldDoHMAC512SigningWithString() {
         Algorithm algorithm = Algorithm.HMAC512("secret");
 
-        String jwt = asJWT(algorithm ,HS512Header, auth0IssPayload);
+        String jwt = asJWT(algorithm , HS512_HEADER, AUTH0_ISS_PAYLOAD);
         String expectedSignature = "OXWyxmf-VcVo8viOiTFfLaEy6mrQqLEos5R82Xsx8mtFxQadJAQ1aVniIWN8qT2GNE_pMQPcdzk4x7Cqxsp1dw";
 
         assertSignaturePresent(jwt);
